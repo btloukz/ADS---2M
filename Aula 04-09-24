@@ -1,0 +1,103 @@
+'''print('Sdds Grohe')
+
+x = {'time': 'Grêmio', 'titulo': 'Libertadores', 'qtd': 3}
+
+print(f'O time do {x['time']} já venceu a {x['titulo']} {x['qtd']} vezes.')
+
+def ola(time, titulo, qtd):
+    ListaTime.append(time)
+    ListaTitulo.append(titulo)
+    ListaQTD.append(qtd)
+
+ListaTime = []
+ListaTitulo = []
+ListaQTD = []
+
+ola('Barcelona', 'Champions', '5')
+
+print(f'O time do {ListaTime[0]} já venceu a {ListaTitulo[0]} {ListaQTD[0]} vezes.')'''
+
+'''class Produto:
+    def __init__(self, vlr, mrc, mod):
+        self.valor = vlr
+        self.marca = mrc
+        self.modelo = mod
+
+prod1 = Produto(1500, 'Samsung', 'SmartTV 5K')
+print()
+print(type(prod1))
+print(prod1.modelo)
+print(prod1.marca)
+print(prod1.valor)'''
+
+'''class Pessoa:
+    def __init__(self, nome, sobrenome, cpf, email):
+        self.nome = nome
+        self.sobrenome = sobrenome
+        self.cpf = cpf
+        self.email = email
+
+Pessoa1 = Pessoa('Lucas', 'Severo', '03035153094', '2024010409@gmail.com')
+print(f'{Pessoa1.nome} {Pessoa1.sobrenome} é dono do CPF: {Pessoa1.cpf} e tem o email dado como: {Pessoa1.email}')
+Pessoa2 = Pessoa('Raisson', 'Arbusti', '12345678912', '2024010481@gmail.com')
+print(f'{Pessoa2.nome} {Pessoa2.sobrenome} é dono do CPF: {Pessoa2.cpf} e tem o email dado como: {Pessoa2.email}')
+Pessoa3 = Pessoa('Pedro', 'Fraga', '98765432198', '2024010472@gmail.com')
+print(f'{Pessoa3.nome} {Pessoa3.sobrenome} é dono do CPF: {Pessoa3.cpf} e tem o email dado como: {Pessoa3.email}')
+
+dados = []
+
+for i in range(3):
+    pessoa = Pessoa(input('Nome: '), input('Sobrenome: '), input('CPF: '), input('Email: '))
+    dados.append({"nome": pessoa.nome, "sobrenome": pessoa.sobrenome, "cpf": pessoa.cpf, "email": pessoa.email})
+
+for i in dados:
+    print(i)
+
+while True:
+    nome = input('Nome: ')
+    if nome == 'N' or nome == 'n':
+        break
+    sobrenome = input('Sobrenome: ')
+    cpf = int(input('CPF: '))
+    email = input('Email: ')
+
+    pessoa1 = Pessoa(nome, sobrenome, cpf, email)
+    dados.append(pessoa1)
+
+for i in dados:
+    print(f'Nome: {i.nome}, Sobrenome: {i.sobrenome}, CPF: {i.cpf}, Email: {i.email}')'''
+
+import pygame
+from random import randint
+
+class Bolinha:
+    def __init__(self,px,py):
+        self.px = px
+        self.py = py
+        self.cor = 'black'
+        self.tamanho = 50
+
+pygame.init()
+tela = pygame.display.set_mode([600,600])
+bola1 = Bolinha(300, 100)
+bola2 = Bolinha(300, 200)
+bola3 = Bolinha(300, 300)
+bola4 = Bolinha(randint(0,800), randint(0,800))
+bola4.cor = 'orange'
+run = True
+while run:
+    print('running')
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            print('Encerrado')
+
+    tela.fill('blue')
+    pygame.draw.circle(tela, bola1.cor, [bola1.px,bola1.py], bola1.tamanho)
+    pygame.draw.circle(tela, bola2.cor, [bola2.px, bola2.py], bola2.tamanho)
+    pygame.draw.circle(tela, bola3.cor, [bola3.px, bola3.py], bola3.tamanho)
+    pygame.draw.circle(tela, bola4.cor, [bola4.px, bola4.py], bola4.tamanho)
+    pygame.display.flip()
+
+pygame.quit()
