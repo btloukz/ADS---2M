@@ -1,0 +1,111 @@
+'''class Carro:
+    def __init__(self, fabricante, modelo, placa):
+        self.fabricante = fabricante
+        self.modelo = modelo
+        self.placa = placa
+
+    def Escreve(self):
+        print(self.fabricante)
+        print(self.modelo)
+        print(self.placa)
+        print('-'*80)
+
+    def Emplacamento(self, novaPlaca):
+        self.placa = novaPlaca
+
+if __name__ == '__main__':
+    c1 = Carro('Ford', 'Mustang', 'IZY6J10')
+    c2 = Carro('Chevrolet', 'Omega', 'IUT1446')
+    c3 = Carro('Fiat', 'Palio', 'ISO2234')
+
+    c1.Escreve()
+    c2.Escreve()
+    c3.Escreve()
+
+    c1.Emplacamento('ABC5A21')
+    c1.Escreve()
+
+class Produto:
+    def __init__(self, valor, marca, modelo, estoque):
+        self.valor = valor
+        self.marca = marca
+        self.modelo = modelo
+        self.estoque = estoque
+
+    def info(self):
+        print(f'R${self.valor:.2f}')
+        print(self.marca)
+        print(self.modelo)
+        print(self.estoque)
+        print('-' * 80)
+
+    def Revalorar(self, NovoValor):
+        self.valor = NovoValor
+
+    def Restocar(self, NovoEstoque):
+        self.estoque = NovoEstoque
+
+class Aluno:
+    def __init__(self, nomeCompleto, curso, matricula, email):
+        self.completo = nomeCompleto
+        self.curso = curso
+        self.matricula = matricula
+        self.email = email
+
+    def info(self):
+        print(self.completo)
+        print(self.curso)
+        print(self.matricula)
+        print(self.email)
+        print('-'*80)
+
+if __name__ == '__main__':
+    prod1 = Produto(24.90, 'Heinz', 'Ketchup', 28)
+    prod2 = Produto(31.90, 'Hammer', 'Maionese', 38)
+
+    prod1.info()
+    prod2.info()
+    prod1.Revalorar(12.50)
+    prod1.info()
+    prod2.Restocar(93)
+    prod2.info()
+
+    aluno1 = Aluno('Lucas Severo', 'ADS', '2024010409', 'severolucasgoncalves@gmail.com')
+    aluno1.info()
+
+import pygame
+from random import randint
+
+class Bolinha:
+    def __init__(self,px,py, cor = 'black', tamanho = 50):
+        self.px = px
+        self.py = py
+        self.cor = cor
+        self.tamanho = tamanho
+
+    def desenhar(self, tela):
+        pygame.draw.circle(tela, self.cor, [self.px, self.py], self.tamanho)
+
+pygame.init()
+tela = pygame.display.set_mode([600,600])
+bola1 = Bolinha(300, 100)
+bola2 = Bolinha(300, 200)
+bola3 = Bolinha(300, 300)
+bola4 = Bolinha(randint(0,800), randint(0,800), cor = 'red', tamanho = 65)
+run = True
+while run:
+    print('running')
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+            print('Encerrado')
+
+    tela.fill('blue')
+    bola1.desenhar(tela)
+    bola2.desenhar(tela)
+    bola3.desenhar(tela)
+    bola4.desenhar(tela)
+    pygame.display.flip()
+
+pygame.quit()'''
