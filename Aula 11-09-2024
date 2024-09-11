@@ -1,0 +1,130 @@
+#Correção do Iuri sobre a classe com método de Aluno
+
+class Aluno:
+    def __init__(self, nomeCompleto, curso, matricula):
+        self.completo = nomeCompleto
+        self.curso = curso
+        self.matricula = matricula
+        self.email = f'{matricula}@aluno.ifrs.edu.br'
+        self.notas = {}
+
+    def info(self):
+        print(self.completo)
+        print(self.curso)
+        print(self.matricula)
+        print(self.email)
+        chaves = self.notas.keys()
+        for disciplina in chaves:
+            print(f'{disciplina}: {self.notas[disciplina]}')
+        print('-'*80)
+
+    def setNota(self,disc,nota):
+        self.notas[disc] = nota
+
+if __name__ == "__main__":
+    a1 = Aluno('Lucas Severo', 'ADS', '2024010409')
+    a1.info()
+    a1.setNota('Física', 9.5)
+    a1.info()
+    print(a1.notas.keys())
+
+#CORREÇÃO DO IURI PYGAME
+#UTILIZAMOS PYGAME.KEY.GET_PRESSED()
+
+from random import random, randint
+import pygame
+from pygame import KEYDOWN
+
+
+class Bolinha:
+    def __init__(self, px, py, cor = "black", tamanho = 50, velocidade = 1):
+        self.px = px
+        self.py = py
+        self.cor = cor
+        self.tamanho = tamanho
+        self.velocidade = velocidade
+
+    def detecta(self, tecla):
+            if tecla[pygame.K_RIGHT] == True:
+                print('DIREITA!!')
+                self.movimento(10, 0)
+
+            if tecla[pygame.K_LEFT] == True:
+                print('ESQUERDA!!')
+                self.movimento(-10, 0)
+
+            if tecla[pygame.K_DOWN] == True:
+                print('DESCENDO!!')
+                self.movimento(0, 10)
+
+            if tecla[pygame.K_UP] == True:
+                print('SUBINDO!!')
+                self.movimento(0, -10)
+
+    def movimento(self, movHorizontal, movVertical):
+        if movHorizontal < 0 and self.px > self.tamanho:
+            self.px -= self.velocidade
+        if movHorizontal > 0 and self.px < 600 - (self.tamanho):
+            self.px += self.velocidade
+        if movVertical < 0 and self.py > self.tamanho:
+            self.py -= self.velocidade
+        if movVertical > 0 and self.py < 600 - (self.tamanho):
+            self.py += self.velocidade
+
+    def desenhar(self, tela):
+        pygame.draw.circle(tela, self.cor, [self.px, self.py], self.tamanho)
+
+pygame.init()
+tela = pygame.display.set_mode([600, 600])
+player = Bolinha(300,300, cor="blue", velocidade=1)
+player2 = Bolinha(200,200, cor="red", velocidade=1)
+bola1 = Bolinha(30, 30)
+bola2 = Bolinha(200, 400)
+bola3 = Bolinha(130, 330)
+bola4 = Bolinha(randint(0,600), randint(0,600), cor="red", tamanho=randint(20, 100))
+
+
+run = True
+while run:
+    #print("running")
+    tecla = pygame.key.get_pressed()
+    if tecla[pygame.K_UP] == True:
+        print('SUBINDO!!')
+    player.detecta(tecla)
+    player2.detecta(tecla)
+    for evento in pygame.event.get():
+        #print(evento)
+
+        if evento.type == pygame.QUIT:
+            run = False
+            #print(evento)
+        if evento.type == KEYDOWN:
+            print(tecla)
+            if evento.key == pygame.K_ESCAPE:
+                run = False
+
+
+    #comando para pintar o fundo da tela
+    tela.fill((100, 140, 0))
+
+    #comandos para desenhar figuras - circle: circulo
+    bola1.desenhar(tela)
+    bola2.desenhar(tela)
+    bola3.desenhar(tela)
+    bola4.desenhar(tela)
+    player.desenhar(tela)
+    player2.desenhar(tela)
+
+    '''pygame.draw.circle(tela, bola1.cor, [bola1.px, bola1.py], bola1.tamanho)
+    pygame.draw.circle(tela, bola2.cor, [bola2.px, bola2.py], bola2.tamanho)
+    pygame.draw.circle(tela, bola3.cor, [bola3.px, bola3.py], bola3.tamanho)
+    pygame.draw.circle(tela, bola4.cor, [bola4.px, bola4.py], bola4.tamanho)'''
+
+
+    #comando para atualizar a tela
+    pygame.display.flip()
+
+
+
+pygame.quit()
+
