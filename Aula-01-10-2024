@@ -1,3 +1,35 @@
+++++++PARTE 1 DA AULA+++++++
+COM ARQUIVO TXT USADO
+
+class Servidor():
+    contador = 0
+    def __init__(self, nome, ip, porta):
+        self.nome = nome
+        self.ip = ip
+        self.porta = porta
+        Servidor.contador += 1
+        self.contador = Servidor.contador
+
+if __name__ == '__main__':
+    arquivo = open('arquivo.txt', 'r')
+
+    lista_servers = []
+
+    linha = arquivo.readline().replace(",", " - ")
+    while linha:
+        info = linha.split('/n')
+        server = Servidor(info[0], info[1], info[2])
+        lista_servers.append(server)
+        linha = arquivo.readline().replace(",", " - ")
+        print(info)
+
+    for i in lista_servers:
+        print(i)
+
+
+
+++++++PARTE 2 DA AULA+++++++
+
 class Usuario:
     def __init__(self, nome, login):
         self.nome = nome
