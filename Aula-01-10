@@ -1,0 +1,38 @@
+class Usuario:
+    def __init__(self, nome, login):
+        self.nome = nome
+        self.login = login
+
+    def __str__(self):
+        return f'{self.login} - {self.nome}'
+
+    def info(self):
+        print(f'{self.login} - {self.nome}')
+
+class Professor(Usuario):
+    def __init__(self, nome, login, titulacao, area):
+        super().__init__(nome, login)
+        self.titulacao = titulacao
+        self.area = area
+        self.disciplinas = []
+        self.email = self.constroiEmail()
+
+    def info(self):
+        #print(f'{self.login} - {self.nome}')
+        super().info()
+        print(f'{self.titulacao} - {self.area}')
+        print(f'{self.email}')
+
+    def adicionaDisciplina(self, disciplina, ano, semestre):
+        self.disciplinas.append(disciplina)
+
+    def constroiEmail(self):
+        preEmail = self.nome.replace(" ", "_")
+        preEmail = preEmail.lower()
+        email = f'{preEmail}@restinga.ifrs.edu.br'
+        return email
+
+
+if __name__ == '__main__':
+    usuario1 = Professor('Iuri Albandes', '1234', 'Dr', 'Computação')
+    usuario1.info()
