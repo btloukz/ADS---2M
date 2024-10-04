@@ -7,21 +7,24 @@ class Servidor():
         self.nome = nome
         self.ip = ip
         self.porta = porta
-        Servidor.contador += 1
         self.contador = Servidor.contador
+        Servidor.contador += 1
+
+    def __str__(self):
+        return f"({self.contador}){self.nome} -{self.ip}:{self.porta}"
 
 if __name__ == '__main__':
-    arquivo = open('arquivo.txt', 'r')
+    arquivo = open('oi.txt', 'r')
 
     lista_servers = []
 
-    linha = arquivo.readline().replace(",", " - ")
+    linha = arquivo.readline().replace("\n", "")
     while linha:
-        info = linha.split('/n')
+        info = linha.split(',')
         server = Servidor(info[0], info[1], info[2])
         lista_servers.append(server)
-        linha = arquivo.readline().replace(",", " - ")
-        print(info)
+        linha = arquivo.readline().replace("\n", "")
+        '''print(info)'''
 
     for i in lista_servers:
         print(i)
