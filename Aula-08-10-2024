@@ -1,0 +1,50 @@
+#PARTE 1 - ANTES DO INTERVALO
+#AGREGAÇÃO E COMPOSIÇÃO
+class Pessoa:
+    def __init__(self, nome, cpf, endereco):
+        self.nome = nome
+        self.cpf = cpf
+        self.endereco = endereco
+        self.ListaVeiculos = []
+
+    def info(self):
+        print(f'{self.nome}')
+        print(f'{self.cpf}')
+        print(f'{self.endereco}')
+        #print(f'{self.ListaVeiculos}')
+        for i in self.ListaVeiculos:
+            print(i.modelo)
+
+    def adicionaNovoVeiculo(self, novo):
+        self.ListaVeiculos.append(novo)
+
+
+class Veiculo:
+    def __init__(self, fabricante, modelo, proprietario, placa):
+        self.fabricante = fabricante
+        self.modelo = modelo
+        self.proprietario = proprietario
+        self.proprietario.adicionaNovoVeiculo(self)
+        #self.proprietario.ListaVeiculos.append(self)
+        self.placa = placa
+
+    def info(self):
+        print(f'Fabricante: {self.fabricante}')
+        print(f'Modelo: {self.modelo}')
+        print(f'Placa: {self.placa}')
+        #assosiação usando objeto p1
+        #ele deve ser criado antes do veiculo para armazenarmos ele em v1
+        print(f'Proprietário: {self.proprietario.nome}')
+        print(f'Endereço do proprietário: {self.proprietario.endereco}')
+
+if __name__ == '__main__':
+
+    p1 = Pessoa('Lucas Severo', '03035153094', 'Rua Odilom de Oliveira 47')
+
+    v1 = Veiculo('Ford', 'Mustang', p1, 'IZY6J10')
+    v2 = Veiculo('Fiat', 'Argo', p1, 'IUT1446')
+
+
+    #atualizamos o endereco
+    v1.info()
+    p1.info()
