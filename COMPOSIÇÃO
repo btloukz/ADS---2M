@@ -1,0 +1,107 @@
+import copy
+
+class Usuario:
+    def __init__(self, login, email, senha):
+        self.login = login
+        self.email = email
+        self.senha = senha
+
+    def __str__(self):
+        return f'{self.login} - {self.email}'
+
+    def info(self):
+        print(f'{self.login} - {self.email}')
+
+
+class Servidor:
+    def __init__(self, nome, ip):
+        self.nome = nome
+        self.ip = ip
+        self.lista_usuarios = [] #DEFINE QUE PODEMOS TRANSFORMAR USER1 EM UM ATRIBUTO DE SERVIDOR, LOGO ESTABELECENDO AGREGAÇÃO
+
+    def __str__(self):
+        return f'{self.nome} - {self.ip}'
+
+    def info(self):
+        print(f'{self.nome} - {self.ip}')
+
+    #COMPÕE A RELAÇÃO DE ASSOCIAÇÃO
+    def Sessao(self, usuario):
+        print(f'{usuario} entrou no servidor!')
+
+    #CONSTROI A RELAÇÃO DE AGREGAÇÃO
+    def cadastraUser(self, usuario):
+        self.lista_usuarios.append(copy.copy(usuario))#a relação deixa de ser entre server1 e user1, e passa a ser server1 e lista_usuarios[0]
+        #nesse caso, se eu apagar o servidor, o usuario copiado também será apagado
+
+    def novo_user(self, login, email, senha):
+        novoUsuario = Usuario(login, email, senha)
+        self.lista_usuarios.append(novoUsuario)
+
+
+if __name__ == '__main__':
+    server1 = Servidor('LINUX', '2022')
+    user1 = Usuario('pedrin.dela', 'pedrinhomatador@gmail.com', '1234')
+    #aqui também temos a composição pelo fato do metodo utilizar o copy, logo se caso apagarmos o server, o user copiado do original também deixa de existir
+    server1.cadastraUser(user1)
+    #construindo um usuario usando um metodo do proprio servidor, logo, ele depende da existencia do servidor pra existir
+    server1.novo_user('raissin.morte', 'raissonpeludo@gmail.com', '2345')
+    #ASSOSIAÇÃO BASICA
+    #server1.Sessao(user1.login)
+
+    #AGORA USER É UM ATRIBUTO DE SERVIDOR, LOGO SENDO UMA AGREGAÇÃO, POIS TEMOS A LISTA DE USUARIOS
+    server1.cadastraUser(user1)
+    print(server1.lista_usuarios)
+
+    '''del server1'''
+
+    user1.info()
+
+
+  -------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  #USANDO O PROGRAMA GAME PRA EXEMPLIFICAR TAMBÉM
+
+  import copy
+
+class Player:
+    def __init__(self, nome, forca, vida):
+        self.nome = nome
+        self.forca = forca
+        self.vida = vida
+        self.arma = None
+
+    def __str__(self):
+        return f'{self.nome} - {self.vida} HP'
+
+    def equipar_arma(self, arma):
+        self.arma = copy.copy(arma)
+
+    def renomear(self, novoNome):
+        self.arma.nome = novoNome
+
+    def info(self):
+        print(self)
+        print(f'Status')
+        print(f'Força - {self.forca}')
+        print(f'Arma equipada: {self.arma.nome}')
+        print(f'Força de ataque: {self.forca+self.arma.ataque}')
+
+class Arma:
+    def __init__(self, nome, ataque, descricao):
+        self.nome = nome
+        self.descricao = descricao
+        self.ataque = ataque
+
+if __name__ == '__main__':
+    pc1 = Player('Goku', 200, 100)
+    '''print(pc1)'''
+    pc2 = Player('Vegeta', 150, 175)
+    arma1 = Arma('NecroSword', 75, 'Espada da morte')
+    pc1.equipar_arma(arma1)
+    pc2.equipar_arma(arma1)
+    pc1.info()
+    pc2.info()
+    pc1.renomear('Faca dos guri')
+    pc1.info()
+    pc2.info()
