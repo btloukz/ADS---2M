@@ -1,0 +1,47 @@
+class Usuario:
+    def __init__(self, login, email, senha):
+        self.login = login
+        self.email = email
+        self.senha = senha
+
+    def __str__(self):
+        return f'{self.login} - {self.email}'
+
+    def info(self):
+        print(f'{self.login} - {self.email}')
+
+
+class Servidor:
+    def __init__(self, nome, ip):
+        self.nome = nome
+        self.ip = ip
+        self.lista_usuarios = [] #DEFINE QUE PODEMOS TRANSFORMAR USER1 EM UM ATRIBUTO DE SERVIDOR, LOGO ESTABELECENDO AGREGAÇÃO
+
+    def __str__(self):
+        return f'{self.nome} - {self.ip}'
+
+    def info(self):
+        print(f'{self.nome} - {self.ip}')
+
+    #COMPÕE A RELAÇÃO DE ASSOCIAÇÃO
+    def Sessao(self, usuario):
+        print(f'{usuario} entrou no servidor!')
+
+    def cadastraUser(self, usuario):
+        self.lista_usuarios.append(usuario)
+
+if __name__ == '__main__':
+    server1 = Servidor('LINUX', '2022')
+    user1 = Usuario('pedrin.delas', 'pedrinhomatador@gmail.com', '1234')
+    #ASSOSIAÇÃO BASICA
+    #server1.Sessao(user1.login)
+    print(server1)
+    #AGORA USER É UM ATRIBUTO DE SERVIDOR, LOGO SENDO UMA AGREGAÇÃO, POIS TEMOS A LISTA DE USUARIOS
+    server1.cadastraUser(user1)
+    print(server1.lista_usuarios)
+
+    '''del server1'''
+
+    user1.info()
+    '''print(server1)'''
+    #aqui deletamos o servidor porém o usuario continuou existindo, pois ele ainda tem sua variável que o guarda
