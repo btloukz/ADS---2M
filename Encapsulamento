@@ -1,0 +1,67 @@
+#ENCAPSULAMENTO EM SENHA E EMAIL
+
+import copy
+
+class Usuario:
+    def __init__(self, login, email, senha):
+        self.login = login
+        self._email = email #atributo protegido de forma fraca
+        self.__senha = senha #encapsulamento com atributo privado
+        #self.senha = senha atributo publico
+
+    def __str__(self):
+        return f'{self.login} - {self.email}'
+
+    def info(self):
+        print(f'{self.login} - {self.email}')
+
+    def getSenha(self): #usado para acessar o atributo privado senha
+        return self.__senha
+
+class Servidor:
+    def __init__(self, nome, ip):
+        self.nome = nome
+        self.ip = ip
+        self.lista_usuarios = [] #DEFINE QUE PODEMOS TRANSFORMAR USER1 EM UM ATRIBUTO DE SERVIDOR, LOGO ESTABELECENDO AGREGAÇÃO
+
+    def __str__(self):
+        return f'{self.nome} - {self.ip}'
+
+    def info(self):
+        print(f'{self.nome} - {self.ip}')
+
+    #COMPÕE A RELAÇÃO DE ASSOCIAÇÃO
+    def Sessao(self, usuario):
+        print(f'{usuario} entrou no servidor!')
+
+    #CONSTROI A RELAÇÃO DE AGREGAÇÃO
+    def cadastraUser(self, usuario):
+        self.lista_usuarios.append(copy.copy(usuario))#a relação deixa de ser entre server1 e user1, e passa a ser server1 e lista_usuarios[0]
+        #nesse caso, se eu apagar o servidor, o usuario copiado também será apagado
+
+    def novo_user(self, login, email, senha):
+        novoUsuario = Usuario(login, email, senha)
+        self.lista_usuarios.append(novoUsuario)
+
+    def infoUsers(self):
+        for user in self.lista_usuarios:
+            print(f'login: {user.login}')
+            #print(f'senha: {user.senha}') Atributo Publico
+            print(f'senha: {user.getSenha()}') # Atributo Privado
+
+if __name__ == '__main__':
+    server1 = Servidor('LINUX', '2022')
+    user1 = Usuario('pedrin.delas', 'pedrinhomatador@gmail.com', '1234')
+    #aqui também temos a composição pelo fato do metodo utilizar o copy, logo se caso apagarmos o server, o user copiado do original também deixa de existir
+    server1.cadastraUser(user1)
+    #construindo um usuario usando um metodo do proprio servidor, logo, ele depende da existencia do servidor pra existir
+    server1.novo_user('raissin.morte', 'raissonpeludo@gmail.com', '2345')
+    server1.infoUsers()
+
+    server1.cadastraUser(user1)
+    '''print(server1.lista_usuarios)'''
+    print(user1._email) #forma de esconder artificialmente um atributo e dificultar meramente seu acesso, confiando no bom senso do usuario
+
+    print(user1._Usuario__senha) #acessando a senha privada (atributo privado)
+
+
