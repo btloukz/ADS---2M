@@ -1,0 +1,31 @@
+class Usuario:
+    def __init__(self, login, email, senha):
+        self.login = login
+        self.email = email
+        self.senha = senha
+
+    def __str__(self):
+        return f'{self.login} - {self.email}'
+
+    def info(self):
+        print(f'{self.login} - {self.email}')
+
+
+class Servidor:
+    def __init__(self, nome, ip):
+        self.nome = nome
+        self.ip = ip
+
+    def __str__(self):
+        return f'{self.nome} - {self.ip}'
+
+    def info(self):
+        print(f'{self.nome} - {self.ip}')
+
+    def Sessao(self, usuario):
+        print(f'{usuario} entrou no servidor!')
+
+if __name__ == '__main__':
+    server1 = Servidor('LINUX', '2022')
+    user1 = Usuario('pedrin.delas', 'pedrinhomatador@gmail.com', '1234')
+    server1.Sessao(user1.login)
