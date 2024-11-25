@@ -1,0 +1,190 @@
+class Pessoa:
+    def __init__(self, nome, cpf, endereco, telefone, email):
+        self.nome = nome
+        self.cpf = cpf
+        self.endereco = endereco
+        self.telefone = telefone
+        self.email = email
+
+    def info_pessoa(self):
+        print(f'Nome: {self.nome}\n'
+              f'CPF: {self.cpf}\n'
+              f'Endereço: {self.endereco}\n')
+
+    def info_contato(self):
+        print(f'Dados de contato de {self.nome}:')
+        print()
+        print(f'Telefone: {self.telefone}\n'
+              f'Email: {self.email}')
+
+class Tutor(Pessoa):
+    def __init__(self, nome, cpf, endereco, telefone, email):
+        super().__init__(nome,cpf,endereco,telefone,email)
+        self.pets = []
+
+    def info_tutor(self):
+        print(f'Nome do tutor: {self.nome}\n'
+              f'CPF: {self.cpf}\n'
+              f'Endereço: {self.endereco}\n'
+              f'Telefone: {self.telefone}\n'
+              f'Email: {self.email}')
+
+    def info_pets(self):
+        print(f'Pets de {self.nome}:')
+        for pet in self.pets:
+            print(f'- {pet.nome}')
+
+    def adicionar_pet(self, pet):
+        if pet not in self.pets:
+            self.pets.append(pet)
+            pet.adicionar_tutor(self)
+
+class Pet:
+    def __init__(self, especie, raca, nome, idade):
+        self.especie = especie
+        self.raca = raca
+        self.nome = nome
+        self.idade = idade
+        self.tutores = []
+        self.atendimentos = []
+
+    def info_pet(self):
+        print(f'Informações do nosso amado {self.especie} chamado {self.nome}:\n'
+              f'Raça: {self.raca}\n'
+              f'Idade: {self.idade} anos')
+
+    def info_tutores(self):
+        print(f'Tutores de {self.nome}:')
+        for tutor in self.tutores:
+            print(f'- {tutor.nome}')
+
+    def adicionar_tutor(self, tutor):
+        if tutor not in self.tutores:
+            self.tutores.append(tutor)
+            tutor.adicionar_pet(self)
+
+    def adicionar_atendimento(self, atendimento):
+        if atendimento not in self.atendimentos:
+            self.atendimentos.append(atendimento)
+
+    def info_atendimento(self):
+        print(f'Atendimentos que o pet da raça {self.raca} nomeado como {self.nome} realizou:')
+        for atendimento in self.atendimentos:
+            print(f'- {atendimento.data}/R${atendimento.valor}')
+
+class Veterinario(Pessoa):
+    def __init__(self, nome, cpf, email, telefone, endereco, crmv, turno):
+        super().__init__(nome, cpf, email, telefone, endereco)
+        self.crmv = crmv
+        self.turno = turno
+        self.consultas = []
+
+    def info_veterinario(self):
+        print(f'Nome do veterinário: {self.nome}\n'
+              f'CPF: {self.cpf}\n'
+              f'CRMV: {self.crmv}\n'
+              f'Turno: {self.turno}')
+
+    def adicionar_consulta(self, consulta):
+        if consulta not in self.consultas:
+            self.consultas.append(consulta)
+
+    def info_consultas(self):
+        print(f'Consultas de {self.nome}: ')
+        if self.consultas:
+            for consulta in self.consultas:
+                print(f' - {consulta.paciente.nome}|{consulta.data}')
+
+class Consulta:
+    def __init__(self, veterinario, paciente, acompanhante, valor, data):
+        self.veterinario = veterinario
+        self.paciente = paciente
+        self.acompanhante = acompanhante
+        self.valor = valor
+        self.data = data
+
+    def info_consulta(self):
+        print(f'Informações da consulta do dia {self.data}:')
+        print()
+        print(f'Veterinário: {self.veterinario.nome}\n'
+              f'Paciente: {self.paciente.raca}/{self.paciente.nome}\n'
+              f'Acompanhante: {self.acompanhante.nome}\n'
+              f'Valor: R${self.valor}')
+
+if __name__ == '__main__':
+    pessoa1 = Pessoa('Ademir Damian', 70409684015, 'Rua Odilom de Oliveira 47', 51985614156, 'ademir_damian@gmail.com')
+    pessoa2 = Pessoa('Raisson Arbusti', 70426361089, 'Rua C 50', 51994715514, 'raisson_arbusti@gmail.com')
+
+    tutor1 = Tutor('Pedro da Verga', 86086394065, 'Rua F, 25', 51912345678, 'pedro_verga@gmail.com')
+    tutor2 = Tutor('Cristiano Ronaldo', 12345678912, 'Al Xhabib, 212', 51951349001, 'cr7_champions@gmail.com')
+
+    pet1 = Pet('Cachorro', 'Pitbull', 'Kiara', 11)
+    pet2 = Pet('Gato', 'Siamês','Bruce', 7)
+
+    veterinario1 = Veterinario('João Pessoa', 83012343211, 'joaozin@gmail.com', 51997852733, 'Rua A, 67', 211, 'Tarde')
+    veterinario2 = Veterinario('Pablo Vittar', 99988877766, 'gostodepica@gmail.com', 80024922111, 'Multishow, 21', 2671, 'Noite')
+
+    consulta1 = Consulta(veterinario2, pet1, tutor2, 35.95, '21/12/2004')
+    consulta2 = Consulta(veterinario1, pet2, tutor1, 67.69, '19/06/2019')
+
+    tutor1.adicionar_pet(pet2)
+    tutor2.adicionar_pet(pet1)
+
+    pet1.adicionar_atendimento(consulta2)
+    pet2.adicionar_atendimento(consulta1)
+
+    veterinario1.adicionar_consulta(consulta2)
+    veterinario2.adicionar_consulta(consulta1)
+
+    print()
+    print('Pessoas: ')
+    print()
+    pessoa1.info_pessoa()
+    print()
+    pessoa2.info_pessoa()
+    print('-'*60)
+    print('Tutores: ')
+    print()
+    tutor1.info_tutor()
+    print('...................................')
+    tutor1.info_pets()
+    print()
+    tutor2.info_tutor()
+    print('...................................')
+    tutor2.info_pets()
+    print('-' * 60)
+    print('Pets: ')
+    print()
+    pet1.info_pet()
+    print('...................................')
+    print()
+    pet1.info_tutores()
+    print('...................................')
+    print(f'Consultas de {pet1.nome}: ')
+    print()
+    pet1.info_atendimento()
+    print()
+    pet2.info_pet()
+    print('...................................')
+    print()
+    pet2.info_tutores()
+    print('...................................')
+    print(f'Consultas de {pet2.nome}: ')
+    print()
+    pet2.info_atendimento()
+    print('-' * 60)
+    print('Veterinários: ')
+    print()
+    veterinario1.info_veterinario()
+    print()
+    veterinario1.info_consultas()
+    print('....................................')
+    veterinario2.info_veterinario()
+    print()
+    veterinario2.info_consultas()
+    print('-' * 60)
+    print('Consultas no geral: ')
+    print()
+    consulta1.info_consulta()
+    print('...................................')
+    consulta2.info_consulta()
