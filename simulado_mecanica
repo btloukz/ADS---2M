@@ -1,0 +1,122 @@
+class Pessoa:
+    def __init__(self, nome_completo, telefone):
+        self.nome_completo = nome_completo
+        self.telefone = telefone
+
+    def altera_contatos(self, novo):
+        self.telefone = novo
+        print(f'O novo contato de {self.nome_completo} é {novo}.')
+
+    def info_pessoa(self):
+        print(f'Nome completo: {self.nome_completo}\n'
+              f'Telefone de contato: {self.telefone}')
+
+class Mecanico(Pessoa):
+    def __init__(self, nome_completo, telefone, especialidade, salario):
+        super().__init__(nome_completo, telefone)
+        self.especialidade = especialidade
+        self.salario = salario
+        self.servicos = []
+
+    def info(self):
+        self.info_pessoa()
+        print(f'Especialidade: {self.especialidade}\n'
+              f'Salário: {self.salario:.3f}\n')
+
+    def listar_servicos(self):
+        print(f'Serviços de {self.nome_completo}: ')
+        if self.servicos:
+            for servico in self.servicos:
+                print(f' - {servico.descricao}')
+        else:
+            print('Nenhum.')
+
+    def altera_especialidade(self, nova):
+        self.especialidade = nova
+        Print(f'Agora o mecânico {self.nome_completo} tem essa especialidade: {nova}.')
+
+    def atribuir_servico(self, servico):
+        if servico not in self.servicos:
+            self.servicos.append(servico)
+
+
+class Carro:
+    def __init__(self, modelo, ano, proprietario, observacoes):
+        self.modelo = modelo
+        self.ano = ano
+        self.proprietario = proprietario
+        self.observacoes = observacoes
+
+    def info_carro(self):
+        print(f'Modelo: {self.modelo}\n'
+              f'Ano: {self.ano}')
+        print(f'Proprietário: {self.proprietario.nome_completo}')
+        print(f'Observações: {self.observacoes}')
+
+    def altera_observacao(self, obs):
+        self.observacoes = obs
+        Print(f'Novas observações: {obs}')
+
+class Servico:
+    def __init__(self, codigo, valor, mecanico_responsavel, carro, descricao):
+        self.codigo = codigo
+        self.valor = valor
+        self.mecanico_responsavel = mecanico_responsavel
+        self.carro = carro
+        self.descricao = descricao
+
+    def info_servico(self):
+        print(f'Código: {self.codigo}\n'
+              f'Valor: R${self.valor}\n'
+              f'Mecânico responsável: {self.mecanico_responsavel.nome_completo}\n'
+              f'Carro: {self.carro.modelo}\n'
+              f'Descrição: {self.descricao}')
+
+    def atualiza_servico(self, novoValor, novaDescricao):
+        self.valor = novoValor
+        self.descricao = novaDescricao
+        Print(f'Serviço atualizado!'
+              f'Novo valor: R${novoValor}'
+              f'Nova descrição: {novaDescricao}')
+
+if __name__ == '__main__':
+
+    pessoa1 = Pessoa('Lucas Severo', '51997852733')
+    pessoa2 = Pessoa('Ademir Damian', '51985614156')
+
+    mecanico1 = Mecanico('Luis Dill', '51987654321', 'Suspensões', 2.300)
+    mecanico2 = Mecanico('Andre Balada', '51912345678', 'Carburadores', 4.800)
+
+    carro1 = Carro('Renault Logan', 2013, pessoa1, 'Carro top')
+    carro2 = Carro('Ford KA', 2020, pessoa2, 'Novinho em folha')
+
+    servico1 = Servico(2112, 390.0, mecanico2, carro1, 'Troca de carburador')
+    servico2 = Servico(2811, 210.50, mecanico1, carro2, 'Melhorar suspensão')
+
+    mecanico1.atribuir_servico(servico2)
+    mecanico2.atribuir_servico(servico1)
+
+    print('Informações dos proprietários: ')
+    pessoa1.info_pessoa()
+    print()
+    pessoa2.info_pessoa()
+    print()
+    print('Carros: ')
+    carro1.info_carro()
+    print()
+    carro2.info_carro()
+    print()
+    print('Mecânicos: ')
+    mecanico1.info()
+    mecanico1.listar_servicos()
+    print()
+    mecanico2.info()
+    mecanico2.listar_servicos()
+    print()
+    print('Serviços: ')
+    servico1.info_servico()
+    print()
+    servico2.info_servico()
+
+
+
